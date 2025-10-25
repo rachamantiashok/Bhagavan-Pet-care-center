@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhagavan Pet Care Center - Caring for Street Animals</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="container">
+            <div class="login-wrapper">
+                <div class="login-header">
+                    <h1>🐾 Bhagavan Pet Care Center</h1>
+                    <p>Welcome to our platform for street animal adoption and care</p>
+                </div>
+                <form id="loginForm" class="login-form">
+                    <h2>Join Our Community</h2>
+                    <div class="form-group">
+                        <label for="username" class="form-label">Username *</label>
+                        <input type="text" id="username" name="username" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile" class="form-label">Mobile Number *</label>
+                        <input type="tel" id="mobile" name="mobile" class="form-control" pattern="[0-9]{10}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="form-label">Address *</label>
+                        <textarea id="address" name="address" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Location Type *</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="location" value="urban" required>
+                                <span>Urban</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="location" value="rural" required>
+                                <span>Rural</span>
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Continue to Home</button>
+                </form>
+                <div class="error-message hidden" id="loginError"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Home Page -->
+    <div id="homePage" class="page">
+        <header class="site-header">
+            <div class="container">
+                <h1>🐾 Bhagavan Pet Care Center</h1>
+                <p class="welcome-message" id="welcomeMessage"></p>
+            </div>
+        </header>
+
+        <main class="container">
+            <section class="hero-section">
+                <h2>Making a Difference in Street Animals' Lives</h2>
+                <p>Join us in our mission to rescue, rehabilitate, and rehome street animals. Every animal deserves love, care, and a safe home.</p>
+            </section>
+
+            <section class="main-options">
+                <div class="options-grid">
+                    <div class="option-card" data-page="adoptionPage">
+                        <div class="option-icon">🏠</div>
+                        <h3>Adoption of Pets</h3>
+                        <p>Find your perfect companion and give a rescued animal a loving home</p>
+                    </div>
+                    <div class="option-card" data-page="donationPage">
+                        <div class="option-icon">💝</div>
+                        <h3>Donation to Pets</h3>
+                        <p>Support our mission with donations for food, medical care, and shelter</p>
+                    </div>
+                    <div class="option-card" data-page="volunteerPage">
+                        <div class="option-icon">🤝</div>
+                        <h3>Join a Pet</h3>
+                        <p>Volunteer with us and help provide temporary care and support</p>
+                    </div>
+                    <div class="option-card" data-page="servicesPage">
+                        <div class="option-icon">🏥</div>
+                        <h3>Services by Organisation</h3>
+                        <p>Discover our veterinary services, rescue operations, and community programs</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <h3>About Street Animals in India</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <strong>35+ Million</strong>
+                        <span>Stray dogs in India</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong>90%</strong>
+                        <span>Need medical attention</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong>500+</strong>
+                        <span>Animals helped by us</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="contact-info">
+                        <h4>Contact Us</h4>
+                        <p>📧 info@bhagavanpetcare.org</p>
+                        <p>📞 +91-9876543210</p>
+                        <p>📍 123 Pet Care Street, Animal Welfare Colony</p>
+                    </div>
+                    <div class="suggestion-form">
+                        <h4>Share Your Suggestions</h4>
+                        <textarea id="suggestionText" placeholder="Your ideas and suggestions..."></textarea>
+                        <button id="submitSuggestion" class="btn btn--secondary btn--sm">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Adoption Page -->
+    <div id="adoptionPage" class="page">
+        <header class="page-header">
+            <div class="container">
+                <button class="back-btn btn btn--outline btn--sm" data-page="homePage">← Back to Home</button>
+                <h1>🏠 Pet Adoption</h1>
+            </div>
+        </header>
+
+        <main class="container">
+            <section class="intro-section">
+                <h2>Find Your Perfect Companion</h2>
+                <p>Our rescued animals are looking for loving homes. Each pet is health-checked, vaccinated, and ready for adoption.</p>
+            </section>
+
+            <section class="available-pets">
+                <h3>Available Pets</h3>
+                <div class="pets-grid" id="petsGrid"></div>
+            </section>
+
+            <section class="adoption-form-section">
+                <h3>Adoption Application</h3>
+                <form id="adoptionForm" class="adoption-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="adoptionName" class="form-label">Full Name *</label>
+                            <input type="text" id="adoptionName" name="fullName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="adoptionEmail" class="form-label">Email *</label>
+                            <input type="email" id="adoptionEmail" name="email" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="preferredPet" class="form-label">Preferred Pet Type *</label>
+                        <select id="preferredPet" name="petType" class="form-control" required>
+                            <option value="">Select pet type</option>
+                            <option value="dog">Dog</option>
+                            <option value="cat">Cat</option>
+                            <option value="bird">Bird</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="homeType" class="form-label">Home Type *</label>
+                        <select id="homeType" name="homeType" class="form-control" required>
+                            <option value="">Select home type</option>
+                            <option value="apartment">Apartment</option>
+                            <option value="house">Independent House</option>
+                            <option value="farm">Farm/Rural Property</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="experience" class="form-label">Do you have experience with pets? *</label>
+                        <select id="experience" name="experience" class="form-control" required>
+                            <option value="">Select experience level</option>
+                            <option value="first-time">First time pet owner</option>
+                            <option value="some">Some experience</option>
+                            <option value="experienced">Very experienced</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="familyMembers" class="form-label">Number of Family Members</label>
+                        <input type="number" id="familyMembers" name="familyMembers" class="form-control" min="1" max="20">
+                    </div>
+                    <div class="form-group">
+                        <label for="additionalInfo" class="form-label">Additional Information</label>
+                        <textarea id="additionalInfo" name="additionalInfo" class="form-control" rows="3" placeholder="Tell us why you want to adopt and any other relevant information"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Submit Adoption Application</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <!-- Donation Page -->
+    <div id="donationPage" class="page">
+        <header class="page-header">
+            <div class="container">
+                <button class="back-btn btn btn--outline btn--sm" data-page="homePage">← Back to Home</button>
+                <h1>💝 Support Our Mission</h1>
+            </div>
+        </header>
+
+        <main class="container">
+            <section class="intro-section">
+                <h2>Make a Difference Today</h2>
+                <p>Your donation directly impacts the lives of street animals. Help us provide food, medical care, shelter, and rescue operations.</p>
+            </section>
+
+            <section class="donation-form-section">
+                <div class="donation-options">
+                    <h3>Choose Donation Amount</h3>
+                    <div class="amount-buttons">
+                        <button class="amount-btn" data-amount="500">₹500</button>
+                        <button class="amount-btn" data-amount="1000">₹1000</button>
+                        <button class="amount-btn" data-amount="2000">₹2000</button>
+                        <button class="amount-btn" data-amount="5000">₹5000</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="customAmount" class="form-label">Or enter custom amount</label>
+                        <input type="number" id="customAmount" class="form-control" min="100" placeholder="Enter amount in ₹">
+                    </div>
+                </div>
+
+                <div class="donation-purpose">
+                    <h3>How would you like to help?</h3>
+                    <div class="purpose-options" id="purposeOptions"></div>
+                </div>
+
+                <form id="donationForm" class="donation-form">
+                    <h3>Donor Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="donorName" class="form-label">Full Name *</label>
+                            <input type="text" id="donorName" name="donorName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="donorEmail" class="form-label">Email *</label>
+                            <input type="email" id="donorEmail" name="donorEmail" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="donorPhone" class="form-label">Phone Number</label>
+                        <input type="tel" id="donorPhone" name="donorPhone" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <input type="checkbox" id="monthlyDonation"> Make this a monthly donation
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Proceed to Payment</button>
+                </form>
+
+                <div class="impact-section">
+                    <h3>Your Impact</h3>
+                    <div class="impact-stats">
+                        <div class="impact-item">
+                            <strong>₹500</strong> can feed 10 street dogs for a week
+                        </div>
+                        <div class="impact-item">
+                            <strong>₹1000</strong> covers vaccination for 5 animals
+                        </div>
+                        <div class="impact-item">
+                            <strong>₹2000</strong> funds emergency surgery for 1 animal
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Volunteer Page -->
+    <div id="volunteerPage" class="page">
+        <header class="page-header">
+            <div class="container">
+                <button class="back-btn btn btn--outline btn--sm" data-page="homePage">← Back to Home</button>
+                <h1>🤝 Join Our Volunteer Team</h1>
+            </div>
+        </header>
+
+        <main class="container">
+            <section class="intro-section">
+                <h2>Be Part of the Solution</h2>
+                <p>Volunteer with us and make a direct impact on street animals' lives. Whether you have an hour a week or several hours a month, we have opportunities that fit your schedule.</p>
+            </section>
+
+            <section class="volunteer-opportunities">
+                <h3>How You Can Help</h3>
+                <div class="activities-grid" id="activitiesGrid"></div>
+            </section>
+
+            <section class="volunteer-form-section">
+                <h3>Volunteer Registration</h3>
+                <form id="volunteerForm" class="volunteer-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="volunteerName" class="form-label">Full Name *</label>
+                            <input type="text" id="volunteerName" name="volunteerName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="volunteerEmail" class="form-label">Email *</label>
+                            <input type="email" id="volunteerEmail" name="volunteerEmail" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="volunteerPhone" class="form-label">Phone Number *</label>
+                            <input type="tel" id="volunteerPhone" name="volunteerPhone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="volunteerAge" class="form-label">Age</label>
+                            <input type="number" id="volunteerAge" name="volunteerAge" class="form-control" min="16" max="99">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="availability" class="form-label">Available Time Commitment *</label>
+                        <select id="availability" name="availability" class="form-control" required>
+                            <option value="">Select availability</option>
+                            <option value="weekends">Weekends only</option>
+                            <option value="weekdays">Weekday evenings</option>
+                            <option value="flexible">Flexible schedule</option>
+                            <option value="occasional">Occasional events</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Preferred Activities (Select all that apply)</label>
+                        <div class="checkbox-group" id="activitiesCheckbox"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="volunteerExperience" class="form-label">Previous Experience with Animals</label>
+                        <textarea id="volunteerExperience" name="volunteerExperience" class="form-control" rows="3" placeholder="Describe any previous experience with animals or volunteer work"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Register as Volunteer</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <!-- Services Page -->
+    <div id="servicesPage" class="page">
+        <header class="page-header">
+            <div class="container">
+                <button class="back-btn btn btn--outline btn--sm" data-page="homePage">← Back to Home</button>
+                <h1>🏥 Our Services</h1>
+            </div>
+        </header>
+
+        <main class="container">
+            <section class="intro-section">
+                <h2>Comprehensive Care for Street Animals</h2>
+                <p>We provide a wide range of services to support street animals and the community members who care for them.</p>
+            </section>
+
+            <section class="services-list">
+                <h3>Available Services</h3>
+                <div class="services-grid" id="servicesGrid"></div>
+            </section>
+
+            <section class="service-request-section">
+                <h3>Request a Service</h3>
+                <form id="serviceRequestForm" class="service-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="requesterName" class="form-label">Your Name *</label>
+                            <input type="text" id="requesterName" name="requesterName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="requesterPhone" class="form-label">Phone Number *</label>
+                            <input type="tel" id="requesterPhone" name="requesterPhone" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceType" class="form-label">Service Needed *</label>
+                        <select id="serviceType" name="serviceType" class="form-control" required>
+                            <option value="">Select service</option>
+                            <option value="veterinary">Veterinary Checkup</option>
+                            <option value="vaccination">Vaccination</option>
+                            <option value="emergency">Emergency Medical Care</option>
+                            <option value="food">Pet Food Distribution</option>
+                            <option value="spaying">Spaying/Neutering</option>
+                            <option value="rescue">Animal Rescue</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="urgency" class="form-label">Urgency Level *</label>
+                        <select id="urgency" name="urgency" class="form-control" required>
+                            <option value="">Select urgency</option>
+                            <option value="emergency">Emergency (Immediate)</option>
+                            <option value="urgent">Urgent (Within 24 hours)</option>
+                            <option value="routine">Routine (Within a week)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="animalDetails" class="form-label">Animal Details</label>
+                        <textarea id="animalDetails" name="animalDetails" class="form-control" rows="3" placeholder="Describe the animal's condition, location, and any other relevant details"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="requestLocation" class="form-label">Location *</label>
+                        <textarea id="requestLocation" name="requestLocation" class="form-control" rows="2" placeholder="Provide detailed location where service is needed" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Submit Service Request</button>
+                </form>
+            </section>
+
+            <section class="emergency-contact">
+                <div class="emergency-card">
+                    <h3>🚨 Emergency Contact</h3>
+                    <p><strong>24/7 Emergency Helpline:</strong> +91-9876543211</p>
+                    <p>For immediate medical emergencies involving street animals</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal hidden">
+        <div class="modal-overlay">
+            <div class="modal-content">
+                <h3 id="successTitle">Success!</h3>
+                <p id="successMessage">Your request has been submitted successfully.</p>
+                <button id="closeModal" class="btn btn--primary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
