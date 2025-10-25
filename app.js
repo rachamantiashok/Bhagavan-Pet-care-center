@@ -645,16 +645,34 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Add real-time validation to phone inputs
   document.querySelectorAll('input[type="tel"]').forEach(input => {
+    // Sanitize input to digits only and clear any custom validity when user types
     input.addEventListener('input', (e) => {
       const phone = e.target.value.replace(/\D/g, '');
       e.target.value = phone;
-      
+      // Clear any custom validity set earlier so browser can re-check
+      if (typeof e.target.setCustomValidity === 'function') {
+        e.target.setCustomValidity('');
+      }
+
       if (phone.length === 10) {
         e.target.style.borderColor = 'var(--color-success)';
       } else if (phone.length > 0) {
         e.target.style.borderColor = 'var(--color-warning)';
       } else {
         e.target.style.borderColor = 'var(--color-border)';
+      }
+    });
+
+    // Provide a clear, user-friendly validation message when the field is invalid
+    input.addEventListener('invalid', (e) => {
+      const val = e.target.value || '';
+      // If empty, show a required message; otherwise show a format-specific message
+      if (val.trim() === '') {
+        e.target.setCustomValidity('Please enter your 10-digit mobile number');
+      } else if (!/^[0-9]{10}$/.test(val)) {
+        e.target.setCustomValidity('Please enter a valid 10-digit mobile number');
+      } else {
+        e.target.setCustomValidity('');
       }
     });
   });
